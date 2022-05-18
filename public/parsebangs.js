@@ -17,7 +17,8 @@ if (typeof window !== "undefined") {
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js");
     } else {
-        // TODO: warn about no SW
+        const nosw = document.getElementById("nosw");
+        if (nosw) nosw.hidden = false;
     }
     const params = new URLSearchParams(location.search);
     const q = params.get("q");

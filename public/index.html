@@ -14,13 +14,26 @@
         h1 {
             margin: 0;
         }
+        .warning {
+            background-color: rgb(250, 204, 0);
+            border: 2px solid rgb(168, 151, 0);
+            padding: 0.5em;
+            margin-top: 1em;
+            width: max-content;
+            width: fit-content;
+        }
     </style>
 </head>
 <body>
-    <noscript>This requries JavaScript to work properly.</noscript>
     <h1>bangs.lol</h1>
     <article>
         <!-- TODO explain how to add to browser -->
+        <noscript class="warning">
+            JavaScript is disabled in your browser; it is needed for this to work.
+        </noscript>
+        <div hidden id="nosw" class="warning">
+            Your browser does not support service workers.
+        </div>
         <p><strong>bangs.lol</strong> evaluates <a href="https://duckduckgo.com/bang">DuckDuckGo bangs</a> in a ServiceWorker, instead of on a server.</p>
         <!-- TODO explain how it works -->
     </article>

@@ -1,0 +1,20 @@
+name: Deploy to Neocities
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    name: Deploy to Neocities
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+      - name: Deploy to neocities
+        uses: bcomnes/deploy-to-neocities@v1
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+          cleanup: false
+          dist_dir: public

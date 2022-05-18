@@ -22,7 +22,6 @@ self.addEventListener("activate", event => {
     })());
 })
 
-// TODO cache this
 const bangsDataPromise = caches.match("bangs.json").then(res => res.json()).catch(error => fetch("bangs.json").then(res => res.json()));
 async function getBangData(bangText) {
     return (await bangsDataPromise).filter(bang => bang.t === bangText)[0];

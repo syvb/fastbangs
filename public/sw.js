@@ -2,8 +2,21 @@
 importScripts("parsebangs.js");
 
 self.addEventListener("install", event => {
-    self.skipWaiting(); // claim all clients immediately
+    caches.open
+    self.skipWaiting(); // don't wait to activate
 });
+
+self.addEventListener("activate", event => {
+    // takeover existing pages
+    event.waitUntil((async () => {
+        await clients.claim();
+        (await clients.matchAll()).forEach(client => {
+            client.postMessage({
+                type: "sw-activated",
+            });
+        });
+    })());
+})
 
 // TODO cache this
 const bangsDataPromise = fetch("bangs.json").then(res => res.json());

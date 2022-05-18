@@ -15,24 +15,26 @@ function getBang(s) {
 if (typeof window !== "undefined") {
     // running in main thread
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js");
+        navigator.serviceWorker.register("/sw.js");
     } else {
         const nosw = document.getElementById("nosw");
         if (nosw) nosw.hidden = false;
     }
-    const params = new URLSearchParams(location.search);
-    const q = params.get("q");
-    if (q !== null) {
-        const bangsDataPromise = fetch("bangs.json").then(res => res.json());
-        const { bangText, removed } = getBang(q);
-        if (bangText) {
-            (async () => {
+    (async () => {
+        const params = new URLSearchParams(location.search);
+        const q = params.get("q");
+        if (q !== null) {
+            const bangsDataPromise = fetch("bangs.json").then(res => res.json());
+            const { bangText, removed } = getBang(q);
+            if (bangText) {
                 const bangsData = await bangsDataPromise;
                 const bang = bangsData.filter(bang => bang.t === bangText)[0];
                 if (bang) {
                     location.href = bang.u.replace(/{{{s}}}/g, removed);
+                    return;
                 }
-            })();
+            }
         }
-    }
+        if (location.pathname !== "/") location.pathname = "/";
+    })();
 }

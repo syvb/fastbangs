@@ -2,8 +2,12 @@
 importScripts("parsebangs.js");
 
 self.addEventListener("install", event => {
-    caches.open
-    self.skipWaiting(); // don't wait to activate
+    event.waitUntil((async () => {
+        (await caches.open("v1")).addAll([
+            "bangs.json",
+        ]);
+        self.skipWaiting(); // don't wait to activate
+    })());
 });
 
 self.addEventListener("activate", event => {
@@ -19,7 +23,7 @@ self.addEventListener("activate", event => {
 })
 
 // TODO cache this
-const bangsDataPromise = fetch("bangs.json").then(res => res.json());
+const bangsDataPromise = caches.match("bangs.json").then(res => res.json()).catch(error => fetch("bangs.json").then(res => res.json()));
 async function getBangData(bangText) {
     return (await bangsDataPromise).filter(bang => bang.t === bangText)[0];
 }

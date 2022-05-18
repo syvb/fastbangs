@@ -1,0 +1,12 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>bangs.lol</ShortName>
+  <Description>Interpert bangs in a service worker</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <!-- TODO <Image width="16" height="16" type="image/x-icon">[https://example.com/favicon.ico]</Image> -->
+  <Url type="text/html" template="https://localhost:8000/search">
+    <Param name="q" value="{searchTerms}"/>
+  </Url>
+  <moz:SearchForm>https://localhost:8000/</moz:SearchForm>
+</OpenSearchDescription>

@@ -21,7 +21,7 @@ if (typeof window !== "undefined") {
     }
     const params = new URLSearchParams(location.search);
     const q = params.get("q");
-    if (q) {
+    if (q !== null) {
         const bangsDataPromise = fetch("bangs.json").then(res => res.json());
         const { bangText, removed } = getBang(q);
         if (bangText) {

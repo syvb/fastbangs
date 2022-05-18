@@ -16,7 +16,7 @@ self.addEventListener("fetch", event => event.respondWith((async () => {
     if (url.pathname === "/" || url.pathname === "/s" || url.pathname === "/s/") {
         const q = url.searchParams.get("q");
         const defaul = url.searchParams.get("d");
-        if (q) {
+        if (q !== null) {
             const { bangText, removed } = getBang(q);
             let bang;
             if (bangText) bang = await getBangData(bangText);

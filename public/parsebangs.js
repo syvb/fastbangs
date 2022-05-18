@@ -9,6 +9,11 @@ function getBang(s) {
 }
 if (typeof window !== "undefined") {
     // running in main thread
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+    } else {
+        // TODO: warn about no SW
+    }
     const params = new URLSearchParams(location.search);
     const q = params.get("q");
     if (q) {

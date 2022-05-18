@@ -15,6 +15,16 @@
         h1 {
             margin: 0;
         }
+        h1:before {
+            content: "#";
+        }
+        h2:before {
+            content: "##";
+        }
+        h1:before, h2:before {
+            color: rgb(121, 121, 121);
+            margin-right: 0.333em;
+        }
         .warning {
             background-color: rgb(250, 204, 0);
             border: 2px solid rgb(168, 151, 0);
@@ -31,15 +41,20 @@
 </head>
 <body>
     <h1>bangs.lol</h1>
-    <article>
-        <!-- TODO explain how to add to browser -->
-        <noscript class="warning">
-            JavaScript is disabled in your browser; it is needed for this to work.
-        </noscript>
-        <div hidden id="nosw" class="warning">
-            Your browser does not support service workers.
-        </div>
-        <p><strong>bangs.lol</strong> evaluates <a href="https://duckduckgo.com/bang">DuckDuckGo bangs</a> in a <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker">service worker</a> instead of on a server. It's faster and more private.</p>
+    <main>
+        <section>
+            <noscript class="warning">
+                JavaScript is disabled in your browser; it is needed for this to work.
+            </noscript>
+            <div hidden id="nosw" class="warning">
+                Your browser does not support service workers.
+            </div>
+            <p><strong>bangs.lol</strong> evaluates <a href="https://duckduckgo.com/bang">DuckDuckGo bangs</a> in a <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker">service worker</a> instead of on a server. It's faster and more private.</p>
+        </section>
+        <section>
+            <h2>Add it to your browser</h2>
+            
+        </section>
         <!-- TODO explain how it works -->
     </article>
 </body>

@@ -31,6 +31,6 @@ self.addEventListener("fetch", event => event.respondWith((async () => {
                 }
             });
         }
-        // TODO: serve normal homepage
     }
+    return fetch(event.request);
 })()));

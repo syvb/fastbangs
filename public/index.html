@@ -15,7 +15,7 @@
         }
         main {
             display: inline-block;
-            text-align: initial;
+            text-align: justify;
             max-width: 43em;
         }
         h1 {
@@ -59,6 +59,7 @@
             border-radius: 1em;
             flex-basis: 0;
             flex-grow: 1;
+            text-align: initial;
         }
         ol > li:before {
             content: counter(item);
@@ -82,6 +83,14 @@
             border-radius: 8px;
             padding: 4px;
             display: inline-block;
+        }
+        .fakeinput {
+            cursor: default;
+            border: none;
+            background: green;
+            width: 4em;
+            height: 4em;
+            outline: none;
         }
         @media (max-width: 1024px) {
             ol {
@@ -110,8 +119,13 @@
             <h2>Add it to your browser</h2>
             <h3>Chrome</h3>
             <p>...</p>
-            <h3>Firefox</h3>
-            <p>...</p>
+            <section>
+                <h3>Firefox</h3>
+                <p>I don't think it's possible to add a search extension to Firefox that isn't a default without an extension. You can add it as a search prefix though by right clicking this box and clicking "Add a Keyword for this Search":</p>
+                <form action="/s">
+                    <input type="text" name="q" class="fakeinput" value="">
+                </form>
+            </section>
             <section>
                 <h3>Other</h3>
                 <ol>

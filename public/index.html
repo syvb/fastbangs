@@ -36,6 +36,50 @@
             width: max-content;
             width: fit-content;
         }
+        /* https://stackoverflow.com/a/32461857/10113238 */
+        ol {
+            list-style: none;
+            counter-reset: item;
+            padding: 0;
+            display: flex;
+            gap: 0.5em;
+        }
+        ol > li {
+            counter-increment: item;
+            display: inline-block;
+            background: rgb(211, 238, 255);
+            padding: 0.5em;
+            border-radius: 1em;
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+        ol > li:before {
+            content: counter(item);
+            display: flex;
+            background: #adadf3;
+            border: 2px solid #7c7cff;
+            border-radius: 50%;
+            width: 2em;
+            height: 2em;
+            margin-left: auto;
+            margin-right: auto;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+        }
+        code {
+            font-family: inherit;
+            font-size: inherit;
+            background: rgb(192, 192, 192);
+            border-radius: 8px;
+            padding: 4px;
+            display: inline-block;
+        }
+        @media (max-width: 1024px) {
+            ol {
+                flex-direction: column;
+            }
+        }
     </style>
     <link rel="search"
         type="application/opensearchdescription+xml"
@@ -60,8 +104,20 @@
             <p>...</p>
             <h3>Firefox</h3>
             <p>...</p>
-            <h3>Other</h3>
-            <p>...</p>
+            <section>
+                <h3>Other</h3>
+                <ol>
+                    <li>
+                        Find your browser's search engine settings
+                    </li>
+                    <li>
+                        Add a search engine with a search URL of <code>https://bangs.lol/s?q=%s</code>
+                    </li>
+                    <li>
+                        Set that search engine as the default
+                    </li>
+                </ol>
+            </section>
         </section>
         <section>
             <h2>About</h2>

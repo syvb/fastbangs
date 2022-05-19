@@ -10,12 +10,18 @@
     <style>
         @font-face {
             font-family: iosevka;
-            src: url('fonts/iosevka-regular.ttf') format('truetype');
+            font-display: swap;
+            src:
+                local("Iosevka")
+                url('fonts/iosevka-regular.ttf') format('truetype');
         }
         @font-face {
             font-family: iosevka;
             font-weight: bold;
-            src: url('fonts/iosevka-bold.ttf') format('truetype');
+            font-display: swap;
+            src:
+                local("Iosevka-Bold")
+                url('fonts/iosevka-bold.ttf') format('truetype');
         }
         body {
             font-family: iosevka, monospace;

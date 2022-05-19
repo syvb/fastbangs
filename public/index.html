@@ -110,6 +110,15 @@
         select {
             font: inherit;
         }
+        footer {
+            margin-top: 1em;
+            padding-top: 1em;
+            border-top: 2px solid gray;
+            color: rgb(58, 58, 58);
+        }
+        footer a {
+            color: rgb(80, 80, 255);
+        }
         @media (max-width: 1024px) {
             ol {
                 flex-direction: column;
@@ -182,6 +191,9 @@
             Check out <a href="https://smitop.com/post/fastbangs">this blog post</a> for all the details.
         </section>
     </article>
+    <footer>
+        Source code licensed under <a href="https://raw.githubusercontent.com/Smittyvb/fastbangs/master/LICENSES/Apache-2.0.txt">the Apache License, Version 2.0</a>. The font used is licensed under the <a href="https://raw.githubusercontent.com/Smittyvb/fastbangs/master/LICENSES/OFL-1.1.txt">SIL Open Font License, version 1.1</a>.
+    </footer>
     <script>
         const sel = document.getElementById("browser-select");
         const options = [...document.getElementById("sel-options").children];

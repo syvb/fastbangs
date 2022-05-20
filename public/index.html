@@ -108,7 +108,7 @@
             height: 4em;
             outline: none;
         }
-        select {
+        select, input {
             font: inherit;
         }
         footer {
@@ -119,6 +119,12 @@
         }
         footer a {
             color: rgb(80, 80, 255);
+        }
+        #sel-options.using-default-bang li.nondefault-bang-step {
+            display: none;
+        }
+        #sel-options.using-nondefault-bang li.default-bang-step {
+            display: none;
         }
         @media (max-width: 1024px) {
             ol {
@@ -145,6 +151,11 @@
         </section>
         <section>
             <h2>Add it to your browser</h2>
+            <div>
+                <label for="default-bang">Default !bang: </label>
+                <input type="text" id="default-bang" value="duckduckgo">
+                = <a href="https://duckduckgo.com/" id="default-bang-link">DuckDuckGo</a>
+            </div>
             <h3>
                 <select id="browser-select">
                     <option value="chromium">Chrome/Chromium</option>
@@ -158,8 +169,14 @@
                         <li>
                             Navigate to <code>chrome://<wbr>settings/<wbr>searchEngines</code>
                         </li>
-                        <li>
+                        <li class="default-bang-step">
                             Under the "Inactive shortcuts" heading, click "Activate" next to the <b>bangs.lol</b> option
+                        </li>
+                        <li class="nondefault-bang-step">
+                            Under the "Site Search" heading, click "Add"
+                        </li>
+                        <li class="nondefault-bang-step">
+                            In the dialog, enter <b>bangs.lol</b> as the search engine, <b>b</b> as the shortcut, and <code class="engine-url">https://bangs.lol/s?q=%s</code> as the URL, and add the engine
                         </li>
                         <li>
                             Click on the 3 dots option for <b>bangs.lol</b> under "Site Search", and click "Make default"
@@ -170,6 +187,7 @@
                     <p>I don't think it's possible to add a search extension to Firefox that isn't a default without an extension. You can add it as a search prefix though by right clicking this box and clicking "Add a Keyword for this Search":</p>
                     <form action="/s">
                         <input type="text" name="q" class="fakeinput" value="">
+                        <input type="hidden" name="d" id="fakeinput-default" value="duckduckgo">
                     </form>
                 </section>
                 <section id="other">
@@ -178,7 +196,7 @@
                             Find your browser's search engine settings
                         </li>
                         <li>
-                            Add a search engine with a search URL of <code>https://bangs.lol/s?q=%s</code>
+                            Add a search engine with a search URL of <code class="engine-url">https://bangs.lol/s?q=%s</code>
                         </li>
                         <li>
                             Set that search engine as the default
@@ -213,6 +231,45 @@
         }
         updateBrowserOptions();
         sel.onchange = updateBrowserOptions;
+
+        (() => {
+            const defaultBang = document.getElementById("default-bang");
+            const defaultBangLink = document.getElementById("default-bang-link");
+            let bangsData = null;
+            function updateBangDisplay() {
+                const bang = bangsData.filter(bang => bang.t === defaultBang.value)[0];
+                if (bang) {
+                    defaultBangLink.textContent = bang.s;
+                    defaultBangLink.href = `https://${bang.d}`;
+                } else {
+                    defaultBangLink.textContent = "?";
+                    defaultBangLink.removeAttribute("href");
+                }
+                document.getElementById("fakeinput-default").value = defaultBang.value;
+                let ourUrl;
+                if (defaultBang.value === "ddg" || defaultBang.value === "duckduckgo") {
+                    ourUrl = `https://${location.hostname}/s?q=%s`;
+                    document.getElementById("sel-options").classList.add("using-default-bang");
+                    document.getElementById("sel-options").classList.remove("using-nondefault-bang");
+                } else {
+                    ourUrl = `https://${location.hostname}/s?q=%s&d=${encodeURIComponent(defaultBang.value)}`;
+                    document.getElementById("sel-options").classList.add("using-nondefault-bang");
+                    document.getElementById("sel-options").classList.remove("using-default-bang");
+                }
+                [...document.getElementsByClassName("engine-url")].forEach(ele => ele.textContent = ourUrl);
+            }
+            defaultBang.addEventListener("input", event => {
+                defaultBang.value = defaultBang.value.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+                if (bangsData) updateBangDisplay();
+            });
+            bangsDataPromise.then(newBangsData => {
+                bangsData = newBangsData;
+                updateBangDisplay();
+            });
+            defaultBang.addEventListener("keydown", event => {
+                if (event.key.length === 1 && !event.key.match(/[a-zA-Z0-9]/g)) event.preventDefault();
+            });
+        })();
     </script>
 </body>
 </html>

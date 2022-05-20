@@ -14,6 +14,7 @@ function getBang(s) {
 }
 if (typeof window !== "undefined") {
     // running in main thread
+    window.bangsDataPromise = fetch("bangs.json").then(res => res.json());
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
     } else {
@@ -24,7 +25,7 @@ if (typeof window !== "undefined") {
         const params = new URLSearchParams(location.search);
         const q = params.get("q");
         if (q !== null) {
-            const bangsDataPromise = fetch("bangs.json").then(res => res.json());
+            // TODO default bang
             const { bangText, removed } = getBang(q);
             if (bangText) {
                 const bangsData = await bangsDataPromise;

@@ -129,15 +129,20 @@
         #sel-options.using-nondefault-bang .default-bang-step {
             display: none;
         }
-        .full-width-step {
-
-        }
         label, .default-bang-eq {
             display: inline-block;
+        }
+        ol > li img {
+            display: block;
         }
         @media (max-width: 53rem) {
             ol {
                 flex-direction: column;
+            }
+        }
+        @media (max-width: 415px) {
+            ol > li img {
+                max-width: 100%;
             }
         }
     </style>
@@ -197,7 +202,7 @@
                 </section>
                 <section id="firefox">
                     <ol>
-                        <li class="full-width-step">
+                        <li>
                             Click on the address bar, and add <b>bangs.lol</b> as a search engine
                             <img src="/img/ff-add.png" alt="An exclamation point icon with a green plus button" width="370">
                         </li>

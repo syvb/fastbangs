@@ -34,6 +34,9 @@
             text-align: justify;
             max-width: 43em;
         }
+        h1, h2, h3, h4, h5, h6 {
+            text-align: initial;
+        }
         h1 {
             margin: 0;
         }
@@ -126,6 +129,9 @@
         #sel-options.using-nondefault-bang li.default-bang-step {
             display: none;
         }
+        label, .default-bang-eq {
+            display: inline-block;
+        }
         @media (max-width: 1024px) {
             ol {
                 flex-direction: column;
@@ -154,9 +160,10 @@
             <div>
                 <label for="default-bang">Default !bang: </label>
                 <input type="text" id="default-bang" value="duckduckgo">
-                = <a href="https://duckduckgo.com/" id="default-bang-link">DuckDuckGo</a>
+                <span class="default-bang-eq">= <a href="https://duckduckgo.com/" id="default-bang-link">DuckDuckGo</a></span>
             </div>
-            <h3>
+            <h3
+                >Browser:
                 <select id="browser-select">
                     <option value="chromium">Chrome/Chromium</option>
                     <option value="firefox">Firefox</option>

@@ -38,7 +38,7 @@ self.addEventListener("fetch", event => event.respondWith((async () => {
             if (bangText) bang = await getBangData(bangText);
             if (!bang && defaul) bang = await getBangData(defaul);
             if (!bang) bang = await getBangData("duckduckgo");
-            const redirUrl = bang.u.replace(/{{{s}}}/g, removed);
+            const redirUrl = bang.u.replace(/{{{s}}}/g, encodeURIComponent(removed));
             return new Response(redirUrl, {
                 status: 302,
                 statusText: "Moved Temporarily",

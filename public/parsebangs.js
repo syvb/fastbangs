@@ -14,7 +14,7 @@ function getBang(s) {
 }
 if (typeof window !== "undefined") {
     // running in main thread
-    window.bangsDataPromise = fetch("bangs.json").then(res => res.json());
+    window.bangsDataPromise = fetch("/bangs.json").then(res => res.json());
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/sw.js");
     } else {

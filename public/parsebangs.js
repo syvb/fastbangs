@@ -12,6 +12,9 @@ function getBang(s) {
         removed: s.replace(BANG_REGEX, "").trim(),
     };
 }
+async function getBangData(bangText) {
+    return (await bangsDataPromise).filter(bang => bang.t === bangText)[0];
+}
 if (typeof window !== "undefined") {
     // running in main thread
     window.bangsDataPromise = fetch("/bangs.json").then(res => res.json());
@@ -24,17 +27,15 @@ if (typeof window !== "undefined") {
     (async () => {
         const params = new URLSearchParams(location.search);
         const q = params.get("q");
+        const defaul = params.get("d");
         if (q !== null) {
-            // TODO default bang
             const { bangText, removed } = getBang(q);
-            if (bangText) {
-                const bangsData = await bangsDataPromise;
-                const bang = bangsData.filter(bang => bang.t === bangText)[0];
-                if (bang) {
-                    location.href = bang.u.replace(/{{{s}}}/g, removed);
-                    return;
-                }
-            }
+            let bang;
+            if (bangText) bang = await getBangData(bangText);
+            if (!bang && defaul) bang = await getBangData(defaul);
+            if (!bang) bang = await getBangData("duckduckgo");
+            location.href = bang.u.replace(/{{{s}}}/g, removed);
+            return;
         }
         if (location.pathname !== "/") location.pathname = "/";
     })();
